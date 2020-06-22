@@ -1,89 +1,50 @@
 import React, { Component } from 'react';
+import { withStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
+import Typography from '@material-ui/core/Typography';
 import { Graph } from "react-d3-graph";
+import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
+import Avatar from '@material-ui/core/Avatar';
+import List from '@material-ui/core/List';
+
+const useStyles = (theme) => ({
+  paper: {
+    // maxWidth: 400,
+    margin: `${theme.spacing(1)}px auto`,
+    padding: theme.spacing(2),
+  },
+});
 
 class GambarGraf extends Component {
-  // graph payload (with minimalist structure)
-  // constructor(){
-  //   super();
-    // const data = {
-    //     nodes: [{ id: "Harry" }, { id: "Sally" }, { id: "Alice" }],
-    //     links: [
-    //         { source: "Harry", target: "Sally" },
-    //         { source: "Harry", target: "Alice" },
-    //     ],
-    // };
-    
-    // the graph configuration, you only need to pass down properties
-    // that you want to override, otherwise default ones will be used
-    // const myConfig = {
-    //     nodeHighlightBehavior: true,
-    //     node: {
-    //         color: "lightgreen",
-    //         size: 120,
-    //         highlightStrokeColor: "blue",
-    //     },
-    //     link: {
-    //         highlightColor: "lightblue",
-    //     },
-    // };
-    
-    // // graph event callbacks
-    // const onClickGraph = function() {
-    //     window.alert(`Clicked the graph background`);
-    // };
-    
-    // const onClickNode = function(nodeId) {
-    //     window.alert(`Clicked node ${nodeId}`);
-    // };
-    
-    // const onDoubleClickNode = function(nodeId) {
-    //     window.alert(`Double clicked node ${nodeId}`);
-    // };
-    
-    // const onRightClickNode = function(event, nodeId) {
-    //     window.alert(`Right clicked node ${nodeId}`);
-    // };
-    
-    // const onMouseOverNode = function(nodeId) {
-    //     window.alert(`Mouse over node ${nodeId}`);
-    // };
-    
-    // const onMouseOutNode = function(nodeId) {
-    //     window.alert(`Mouse out node ${nodeId}`);
-    // };
-    
-    // const onClickLink = function(source, target) {
-    //     window.alert(`Clicked link between ${source} and ${target}`);
-    // };
-    
-    // const onRightClickLink = function(event, source, target) {
-    //     window.alert(`Right clicked link between ${source} and ${target}`);
-    // };
-    
-    // const onMouseOverLink = function(source, target) {
-    //     window.alert(`Mouse over in link between ${source} and ${target}`);
-    // };
-    
-    // const onMouseOutLink = function(source, target) {
-    //     window.alert(`Mouse out link between ${source} and ${target}`);
-    // };
-    
-    // const onNodePositionChange = function(nodeId, x, y) {
-    //     window.alert(`Node ${nodeId} is moved to new position. New position is x= ${x} y= ${y}`);
-    // };
-  // }
   state = {
     hoverOn: null
   };
-  render
+  
+  renderIdentity(elem){
+    const { classes } = this.props;
+    return (
+      <Paper className={classes.paper}>
+        <Grid container wrap="nowrap" spacing={2}>
+          <Grid item>
+            <Avatar></Avatar>
+          </Grid>
+          <Grid item xs>
+            <Typography>
+              ID: { elem.id }<br/>
+              NAME: { elem.name }<br/>
+              ELEMENT: { elem.element }<br/>
+            </Typography>
+          </Grid>
+        </Grid>
+      </Paper>
+    );
+  }
 
   allFriend() {
     return this.props.person.payload.friends.map((friend, i) => (
       <li key={i}>     
-        { friend.id }<br/>
-        { friend.name }<br/>
-        { friend.element }<br/>
+        { this.renderIdentity(friend) }
       </li>
     ));
   }
@@ -98,16 +59,19 @@ class GambarGraf extends Component {
     if (this.state.hoverOn === null) return <div></div>;
     return (
       <React.Fragment>
-        { this.state.hoverOn.id }<br/>
+        {/* { this.state.hoverOn.id }<br/>
         { this.state.hoverOn.name }<br/>
-        { this.state.hoverOn.element }<br/>
+        { this.state.hoverOn.element }<br/> */}
+        {this.renderIdentity(this.state.hoverOn)}
       </React.Fragment>
     );
-  }
+  };
 
   // Graph onAction
+  onClickNode = function(nodeId) {
+    this.props.giveId(nodeId);
+  };
   onMouseOverNode = function(nodeId) {
-      // window.alert(`Mouse over node ${nodeId}`);
     let len = this.props.person.payload.friends.length;
     let temp = null;
     for (let i=0;i<len;i++) {
@@ -128,7 +92,7 @@ class GambarGraf extends Component {
       let data = {
           nodes: [],
           links: [],
-          // focusedNodeId: 1,
+          // focusedNodeId: "nodeIdToTriggerZoomAnimation",
       };
       data.nodes.push(
         { 
@@ -148,19 +112,29 @@ class GambarGraf extends Component {
       }
       const myConfig = {
           nodeHighlightBehavior: true,
-          // automaticRearrangeAfterDropNode: true,
+          highlightDegree: 1,
+          linkHighlightBehavior: false,
+          automaticRearrangeAfterDropNode: true,
           node: {
-              color: "lightgreen",
-              size: 120,
-              highlightStrokeColor: "blue",
+            size: 300,
+            highlightStrokeColor: "black",
+            highlightStrokeWidth: 2,
           },
           link: {
-              highlightColor: "lightblue",
+            color: "black",
+            highlightColor: "lightblue",
           },
           minZoom: 1,
-          maxZoom: 2,
-          focusZoom: 2,
+          maxZoom: 1,
+          width: 600,
+          height: 400,
+          transision: 100,
       };
+      const curNode = {
+        id: this.props.person.payload.id,
+        name: this.props.person.payload.name,
+        element: this.props.person.payload.element,
+      }
       return (
         <React.Fragment>
           <div style={{ width: '100%' }}>
@@ -172,7 +146,7 @@ class GambarGraf extends Component {
                       id="graph-id" // id is mandatory, if no id is defined rd3g will throw an error
                       data={data}
                       config={myConfig}
-                      // onClickNode={this.onClickNode}
+                      onClickNode={this.onClickNode.bind(this)}
                       // onDoubleClickNode={this.onDoubleClickNode}
                       // onRightClickNode={this.onRightClickNode}
                       // onClickGraph={this.onClickGraph}
@@ -185,17 +159,27 @@ class GambarGraf extends Component {
                       // onNodePositionChange={this.onNodePositionChange}
                     />
                   </Box>
-                  <Box p={1} bgcolor="grey.300">
+                  <Box p={1}>
                     { this.hoveredNode() }
                   </Box>
                 </Box>
               </Box>
-              <Box p={1} bgcolor="grey.300">
-                { this.props.person.payload.id }<br/>
-                { this.props.person.payload.name }<br/>
-                { this.props.person.payload.element }<br/>
-                { this.allFriend() }
+              <Box p={1}>
+                <Box display="flex" flexDirection="column" p={1} m={1} bgcolor="grey.300">
+                  <Box p={1}>
+                    { this.renderIdentity(curNode) }
+                    <Typography variant="h5">Friend List</Typography>
+                  </Box>
+                  <Box p={1} bgcolor="grey.700">
+                    <List style={{maxHeight: 600, overflow: 'auto'}}>
+                      <ul style={{ listStyleType: "none" }}>
+                        { this.allFriend() }
+                      </ul>
+                    </List>
+                  </Box>
+                </Box>
               </Box>
+              
             </Box>
           </div>
         </React.Fragment>
@@ -207,4 +191,4 @@ class GambarGraf extends Component {
   }
 }
 
-export default GambarGraf;
+export default withStyles(useStyles)(GambarGraf);

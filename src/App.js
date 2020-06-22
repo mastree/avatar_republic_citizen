@@ -4,7 +4,6 @@ import Search from './components/Search';
 import About from './components/About';
 import Header from './components/Header';
 import GambarGraf from './components/GambarGraf'; 
-import './App.css';
 
 class App extends Component {
   state = {
@@ -37,7 +36,7 @@ class App extends Component {
   render() {
     return (
       <Router>
-        <div className="App">
+        <div>
           <div className="container">
             <Header />
             <Route
@@ -46,7 +45,7 @@ class App extends Component {
               render={props => (
                 <React.Fragment>
                   <Search giveId={this.giveId} />
-                  <GambarGraf id={this.state.id} person={this.state.person} />
+                  <GambarGraf id={this.state.id} person={this.state.person} giveId={this.giveId} />
                 </React.Fragment>
               )}
             />

@@ -23,7 +23,7 @@ export class Search extends Component {
   render() {
       return (
         <React.Fragment>
-          <form onSubmit={this.onSubmit}>
+          <form onSubmit={this.onSubmit} style={searchStyle}>
             <TextField
               id="inputField"
               name="title"
@@ -44,6 +44,10 @@ export class Search extends Component {
         </React.Fragment>
       )
   }
+}
+
+const searchStyle = {
+  padding: '10px',
 }
 
 export default Search;
