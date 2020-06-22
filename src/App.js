@@ -34,25 +34,32 @@ class App extends Component {
   };
 
   render() {
+    // return (
+    //   <Router>
+    //     <div>
+    //       <div className="container">
+    //         <Header />
+    //         <Route
+    //           exact
+    //           path="/"
+    //           render={props => (
+    //             <React.Fragment>
+    //               <Search giveId={this.giveId} />
+    //               <GambarGraf id={this.state.id} person={this.state.person} giveId={this.giveId} />
+    //             </React.Fragment>
+    //           )}
+    //         />
+    //         <Route path="/about" component={About} />
+    //       </div>
+    //     </div>
+    //   </Router>
+    // );
     return (
-      <Router>
-        <div>
-          <div className="container">
-            <Header />
-            <Route
-              exact
-              path="/"
-              render={props => (
-                <React.Fragment>
-                  <Search giveId={this.giveId} />
-                  <GambarGraf id={this.state.id} person={this.state.person} giveId={this.giveId} />
-                </React.Fragment>
-              )}
-            />
-            <Route path="/about" component={About} />
-          </div>
-        </div>
-      </Router>
+      <React.Fragment>
+        <Header />
+        <Search giveId={this.giveId} />
+        <GambarGraf id={this.state.id} person={this.state.person} giveId={this.giveId} />
+      </React.Fragment>
     );
   }
 }
