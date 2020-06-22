@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/avatar_republic_citizen/precache-manifest.e4d486ada6ddef90b3a63c20d0553464.js"
+  "/avatar_republic_citizen/precache-manifest.18c8231747c0849f1da0cc53a9770945.js"
 );
 
 self.addEventListener('message', (event) => {
