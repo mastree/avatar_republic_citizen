@@ -1,10 +1,10 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import Typography from '@material-ui/core/Typography';
 
 function Header() {
   return (
     <header style={headerStyle}>
-      <h1>Welcome to Avatar Star Citizen!</h1>
+      <Typography component="h1" variant="button">Avatar Suspect Expander</Typography>
     </header>
   )
 }

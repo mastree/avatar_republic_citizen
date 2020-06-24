@@ -10,6 +10,7 @@ export class Search extends Component {
   onSubmit = (e) => {
     e.preventDefault();
     this.props.giveId(this.state.title);
+    console.log("submit");
   }
 
   onChange = (e) => {
