@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "3cc37d67caccb0b395c3767cac670229",
+    "revision": "7f6ba5fbf83cdf9825da540a8db361c2",
     "url": "/avatar_republic_citizen/index.html"
   },
   {
-    "revision": "80fe0d7edcff50528f87",
+    "revision": "e33f73b45526086f7931",
     "url": "/avatar_republic_citizen/static/css/main.5ecd60fb.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/avatar_republic_citizen/static/js/2.4481e206.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "80fe0d7edcff50528f87",
-    "url": "/avatar_republic_citizen/static/js/main.e61c1a60.chunk.js"
+    "revision": "e33f73b45526086f7931",
+    "url": "/avatar_republic_citizen/static/js/main.c6ed5b67.chunk.js"
   },
   {
     "revision": "a52d2fd184cedf7750e1",
