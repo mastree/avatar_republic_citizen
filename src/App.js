@@ -27,7 +27,7 @@ class App extends Component {
     return "yellow";
   };
 
-  linkToString(link) {
+  linkToString(link) { // Canonical form
     let a = Math.min(link.source, link.target);
     let b = Math.max(link.source, link.target);
     return a + " " + b;

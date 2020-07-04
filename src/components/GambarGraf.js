@@ -18,7 +18,6 @@ const myConfig = {
     size: 300,
   },
   link: {
-    color: "black",
     highlightColor: "lightblue",
   },
   minZoom: 1,
